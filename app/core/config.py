@@ -38,7 +38,7 @@ class Settings(BaseSettings):
             return v
         raise ValueError(v)
 
-    SQLALCHEMY_DATABASE_URI: Optional[str] = "sqlite:///sondaj.db"
+    SQLALCHEMY_DATABASE_URI: Optional[str] = "sqlite:///./data/sondaj.db"
     FIRST_SUPERUSER: EmailStr = "paul@fitss.ro"
     FIRST_SUPERUSER_PW: str = "testtest"
 

@@ -3,8 +3,7 @@ from pathlib import Path
 from typing import Any, Optional
 
 from fastapi import FastAPI, APIRouter, Request, Depends, HTTPException, Query
-from fastapi.templating import Jinja2Templates
-from fastapi.staticfiles import StaticFiles
+
 from sqlalchemy.orm import Session
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -12,15 +11,13 @@ from app.api import deps
 from app.models import LiveQuestion, UserQuestion
 from app.core.config import settings
 
-
-from app.crud.user_questions import UserQuestionCreate, UserQuestionVote
 from app.crud.live_question import LiveQuestionCreate, LiveQuestionVote
+from app.crud.user_questions import UserQuestionCreate, UserQuestionVote
 
+from app.db.session import engine
+from app.db.base_class import Base
 
-BASE_PATH = Path(__file__).resolve().parent
-TEMPLATES = Jinja2Templates(
-    directory=str(BASE_PATH.parent / "frontend" / "build")
-)
+Base.metadata.create_all(bind=engine)
 
 
 root_router = APIRouter()
